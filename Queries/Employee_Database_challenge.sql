@@ -50,3 +50,25 @@ ON e.emp_no = t.emp_no
 WHERE (de.to_date = '9999-01-01')
 AND (birth_date BETWEEN '1965-01-01' AND '1965-12-31')
 ORDER BY e.emp_no ASC; 
+
+SELECT COUNT(*) FROM unique_titles;
+SELECT COUNT(*) FROM mentorship_eligibility;
+
+-- create a Titles of mentorship eligible employees table 
+-- that contains the number of title of employees 
+-- who are eligible for mentorship
+SELECT COUNT (title), title
+FROM mentorship_eligibility
+GROUP BY title
+ORDER BY count DESC
+
+
+-- Mentorship Eligible Employee count by department
+SELECT COUNT(me.emp_no), d.dept_name
+FROM mentorship_eligibility as me
+LEFT JOIN dept_employee as de
+ON me.emp_no = de.emp_no
+LEFT JOIN departments as d
+ON de.dept_no = d.dept_no
+GROUP BY d.dept_name
+ORDER BY count DESC;
